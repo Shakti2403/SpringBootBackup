@@ -1,0 +1,327 @@
+
+CREATE TABLE LOGIN_DETAILS(
+USER_ID NUMBER(8),
+USER_PASSWORD VARCHAR(50)NOT NULL,
+DESIGNATION VARCHAR(50) NOT NULL,
+CONSTRAINT pk_user_id PRIMARY KEY(USER_ID)
+);
+
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Tejas@123','Developer');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Shahnawaj@15','Developer');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Shashikant@15','Developer');
+
+drop table login_details;
+
+CREATE SEQUENCE user_id_sequence
+START WITH 1000 INCREMENT BY 1;
+
+select * from job_request;
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count , p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id AND p.project_id IN (select project_id from employee_details where mgr = (select employee_id from employee_details where user_id= (select user_id from login_details where user_id = ?);
+
+select * from employee_details;
+
+
+drop sequence user_id_sequence;
+
+
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Pratik@123','Team Leader');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Sunny@123','Team Leader');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Mahesh@123','Team Leader');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Sayali@123','Project Manager');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Vikrant@123','Project Manager');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Shakti@123','HR');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Suraj@123','Interviewer');
+INSERT INTO LOGIN_DETAILS VALUES(user_id_sequence.nextVal,'Rahul@15','Team Leader');
+
+select * from login_details;
+
+commit;
+
+
+CREATE TABLE project_details
+(
+project_id NUMBER(10) NOT NULL,
+project_name VARCHAR(20) NOT NULL,
+skill_1 VARCHAR(50) NOT NULL,
+skill_2 VARCHAR(50) NOT NULL,
+skill_3 VARCHAR(50) NOT NULL,
+budget number(10,2) not null,
+status VARCHAR(50) NOT NULL,
+CONSTRAINT pk_project_id PRIMARY KEY(project_id)
+);
+
+
+drop sequence project_id_sequence;
+
+CREATE SEQUENCE project_id_sequence
+START WITH 1000 INCREMENT By 1;
+
+
+INSERT INTO PROJECT_DETAILS VALUES(project_id_sequence.nextVal,'Google Pay' ,'Java','Python','.net',100000,'Ongoing');
+INSERT INTO PROJECT_DETAILS VALUES(project_id_sequence.nextVal,'Phone Pay' ,'Java','Python','.net',150000,'Completed');
+INSERT INTO PROJECT_DETAILS VALUES(project_id_sequence.nextVal,'Paytm' ,'Java','Python','.net',200000,'Ongoing');
+INSERT INTO PROJECT_DETAILS VALUES(project_id_sequence.nextVal,'SBI' ,'Java','Python','.net',500000,'Completed');
+INSERT INTO PROJECT_DETAILS VALUES(project_id_sequence.nextVal,'ICICI' ,'Java','Python','.net',1000000,'Pending');
+
+
+
+drop sequence project_id_sequence;
+
+
+
+CREATE TABLE EMPLOYEE_DETAILS(
+employee_id NUMBER(8),
+first_name VARCHAR(50)NOT NULL,
+last_name VARCHAR(50)NOT NULL,
+contact VARCHAR(50)NOT NULL,
+designation VARCHAR(50) NOT NULL,
+skill_1 VARCHAR(50) NOT NULL,
+skill_2 VARCHAR(50) NOT NULL,
+skill_3 VARCHAR(50) NOT NULL,
+bench VARCHAR(50)NOT NULL,
+salary NUMBER(10,2)NOT NULL,
+address VARCHAR(50)NOT NULL,
+city VARCHAR(40)NOT NULL,
+state VARCHAR(50)NOT NULL,
+pin_code NUMBER(10)NOT NULL,
+user_id NUMBER(8),
+project_id NUMBER(10),
+MGR NUMBER(10),
+CONSTRAINT EMPLOYEE_DETAILS_employee_id_pk PRIMARY KEY(employee_id),
+CONSTRAINT EMPLOYEE_DETAILS_user_id_pk FOREIGN KEY(user_id) REFERENCES LOGIN_DETAILS(user_id),
+CONSTRAINT EMPLOYEE_DETAILS_project_id_pk FOREIGN KEY(project_id) REFERENCES PROJECT_DETAILS(project_id)
+);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Rohit','Gupta','9322100196','Developer','Java','C++','PYTHON','Yes',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,Null,Null);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Vipul','Patil','9322188896','Developer','Java','C++','PYTHON','Yes',25500,'Aprartment','Mumbai','Maharashtra',400552,Null,Null,Null);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Gagan','Pandey','9322345496','Developer','Java','C++','PYTHON','Yes',25000,'Vibhuti','Mumbai','Maharashtra',400342,Null,Null,Null);
+
+
+drop SEQUENCE employee_id_sequence;
+
+select *from employee_details;
+
+drop table employee_details;
+
+
+CREATE SEQUENCE employee_id_sequence
+START WITH 1000 INCREMENT BY 1;
+
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Pratik','Ghadge','9322122196','Team Leader','Java','HTML','PYTHON','No',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,1000,1003);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Sunny','Sharma','9322122196','Team Leader','Java','HTML','PYTHON','No',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,1000,1003);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Mahesh','Pawar','9322122196','Team Leader','Java','HTML','PYTHON','No',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,1000,1003);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Sayali','Shete','7894561235','Project Manager','HTML/CSS','JAVA','ANGULAR','Yes',27000,'Kalptaru','Navi-Mumbai','Maharashtra',400023,1001,1001,1005);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Vikrant','Ram','9322122196','Project Manager','Java','HTML','PYTHON','No',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,1000,1005);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Shakti','Patole','4561237892','Hr','ADVANCE JAVA','HTML/CSS','PYTHON','Yes',27000,'Sadguru','Badlapur','Maharashtra',400043,1002,1002,null);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Suraj','Patel','7894561230','Interviewer','Java','HTML/CSS','PYTHON','No',27000,'Crescent Bay','Mumbai','Maharashtra',400013,1003,1003,1005);
+
+CREATE TABLE JOB_REQUEST(
+job_id NUMBER(10),
+project_id NUMBER(10),
+employee_id NUMBER(10),
+skill_1 VARCHAR(50)NOT NULL,
+skill_2 VARCHAR(50)NOT NULL,
+skill_3 VARCHAR(50)NOT NULL,
+count NUMBER(8)NOT NULL,
+status VARCHAR(10) NOT NULL,
+CONSTRAINT job_id_pk PRIMARY KEY(job_id),
+CONSTRAINT project_id_pkk FOREIGN KEY(project_id) REFERENCES PROJECT_DETAILS(project_id),
+CONSTRAINT employee_id_pkk FOREIGN KEY(employee_id) REFERENCES EMPLOYEE_DETAILS(employee_id)
+);
+
+
+
+CREATE SEQUENCE job_id_sequence
+START WITH 1000 INCREMENT BY 1;
+
+drop sequence job_id_sequence;
+
+INSERT INTO JOB_REQUEST VALUES(job_id_sequence.nextVal,1000,1000,'Java','Python','SQL',5,'pending');
+INSERT INTO JOB_REQUEST VALUES(job_id_sequence.nextVal,1001,1001,'Python','JAva','SQL',5,'pending');
+INSERT INTO JOB_REQUEST VALUES(job_id_sequence.nextVal,1002,1002,'SQL','Angular','.net',4,'complete');
+INSERT INTO JOB_REQUEST VALUES(job_id_sequence.nextVal,1003,1003,'Java','Python','SQL',5,'pending');
+
+select * from login_details;
+select * from job_request;
+
+select *from employee_details;
+select *from project_details;
+ commit;
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,e.employee_id, e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j ,employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id;
+
+
+
+drop table login_details;
+drop table project_details;
+drop table employee_details;
+drop table JOB_REQUEST;
+
+
+drop table JOB_REQUEST;
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count , p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code
+, e.user_id
+from job_request j , project_details p , employee_details e
+where 
+j.employee_id = e.employee_id
+and
+j.project_id = p.project_id;
+
+select * from job_request;
+
+select * from login_details; where login_id = 1001;
+
+
+
+commit;
+
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status,e.employee_id, e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id ,e.mgr
+from job_request j , employee_details e 
+where  e.project_id=1000 and j.status='pending';
+
+select * from employee_details where ;
+select * from  job_request where status = 'pending';
+
+select * from employee_details;
+
+select * from job_request; 
+
+COMMIT;
+
+select * from employee_details e , job_request j where e.bench='Yes' and e.skill_1=j.skill_1 and e.skill_2=j.skill_2 and e.skill_3=j.skill_3 and  j.job_id=1008;
+
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count , p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id AND p.project_id IN (select project_id from employee_details where mgr = (select employee_id from employee_details where user_id= (select user_id from login_details where user_id = 1003)));
+
+select * from job_request;
+
+
+
+commit;
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id AND p.project_id IN (select project_id from employee_details where mgr = (select employee_id from employee_details where user_id= (select user_id from login_details where user_id = 1003)));
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id;
+
+select * from employee_details;  
+
+commit;
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e 
+where j.employee_id = e.employee_id 
+and j.project_id = p.project_id 
+AND p.project_id IN (select project_id from employee_details where mgr = (select employee_id from employee_details where user_id= (select user_id from login_details where user_id = 1003)));
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id and j.status = 'Pending' and  e.user_id = 1000;
+
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id and e.user_id = 1000 and ;
+
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Tejas','Sabale','93567546778','Developer','Java','PYTHON','SQL','Yes',25000,'Naidu','Mumbai','Maharashtra',400099,1008,1003,null);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Shahnawaj','Khan','7022122191','Developer','Java','PYTHON','SQL','Yes',25000,'Laxmi Nagar','Mumbai','Maharashtra',400067,1009,1003,null);
+INSERT INTO EMPLOYEE_DETAILS VALUES(employee_id_sequence.nextVal,'Shashikant','Shinde','8022122111','Developer','Java','HTML','PYTHON','No',25000,'Nisarg','Mumbai','Maharashtra',400012,1000,1000,null);
+
+select * from login_details;
+commit;
+
+select j.job_id , j.project_id , j.employee_id , j.skill_1 , j.skill_2 , j.skill_3 , j.count ,j.status as job_status, p.project_name , p.skill_1 as project_skill_1 ,  p.skill_2 as project_skill_2 ,  p.skill_3 as project_skill_3 , p.budget , p.status , e.first_name , e.last_name , e.contact, e.designation , e.skill_1 as employee_skill_1 , e.skill_2 as employee_skill_2 , e.skill_3 as employee_skill_3 , e.bench , e.salary , e.address, e.city , e.state, e.pin_code , e.user_id from job_request j , project_details p , employee_details e where j.employee_id = e.employee_id and j.project_id = p.project_id AND p.project_id IN (select project_id from employee_details where mgr = (select employee_id from employee_details where user_id= (select user_id from login_details where user_id = 1003)));
+
+
+CREATE TABLE DOCUMENT_DETAILS(
+document_id NUMBER(8),
+document_name VARCHAR(50)NOT NULL,
+document_type VARCHAR(50)NOT NULL,
+document BLOB,
+CONSTRAINT document_id_pk PRIMARY KEY(document_id)
+);
+
+select * from job_request;
+select * from login_details;
+
+
+
+CREATE TABLE APPLICANT_DETAILS(
+applicant_id NUMBER(8),
+applicant_name VARCHAR(50)NOT NULL,
+mail_id VARCHAR(50)NOT NULL,
+contact_number VARCHAR(50)NOT NULL,
+skill_1 VARCHAR(50)NOT NULL,
+skill_2 VARCHAR(50)NOT NULL,
+skill_3 VARCHAR(50)NOT NULL,
+qualification VARCHAR(50)NOT NULL,
+experience VARCHAR(50)NOT NULL,
+status VARCHAR(50)NOT NULL,
+job_id NUMBER(8),
+document_id NUMBER(8),
+CONSTRAINT applicant_id_pk PRIMARY KEY(applicant_id),
+CONSTRAINT job_id_fk FOREIGN KEY(job_id) REFERENCES JOB_REQUEST(job_id),
+CONSTRAINT document_id_fk FOREIGN KEY(document_id) REFERENCES DOCUMENT_DETAILS(document_id);
+);
+
+
+
+INSERT INTO APPLICANT_DETAILS VALUES(applicant_id_sequence.nextVAL,'PRATIK MISHRA','pratikmishra98@gmail.com','4578961237','Python','JAVA','SQL','B.E.','1 Year','InProcess',1000,1000);
+INSERT INTO APPLICANT_DETAILS VALUES(applicant_id_sequence.nextVAL,'Vineet Gauda','vineetkgauda98@gmail.com','4557982132','Python','JAVA','Angular','B.E.','2 Years','InProcess',1001,1001);
+INSERT INTO APPLICANT_DETAILS VALUES(applicant_id_sequence.nextVAL,'Gagan Jandu','gaganjandu99@gmail.com','7894561230','SQL','JAVA','Angular','B.E.','0 Years','InProcess',1004,1002);
+INSERT INTO APPLICANT_DETAILS VALUES(applicant_id_sequence.nextVAL,'Rohit Pandey','rohitpandey94@gmail.com','7458961237','Python','JAVA','SQL','B.E.','1 Year''InProcess',1005,1003);
+
+
+INSERT INTO DOCUMENT_DETAILS VALUES( document_id_sequence.nextVAL,'Resume1','PDF',null);
+INSERT INTO DOCUMENT_DETAILS VALUES( document_id_sequence.nextVAL,'Resume2','PDF',null);
+INSERT INTO DOCUMENT_DETAILS VALUES( document_id_sequence.nextVAL,'Resume3','Word',null);
+INSERT INTO DOCUMENT_DETAILS VALUES( document_id_sequence.nextVAL,'Resume4','PDF',null);
+
+
+CREATE SEQUENCE document_id_sequence
+START WITH 1000 INCREMENT BY 1;
+
+drop sequence  document_id_sequence;
+
+select *from document_details;
+
+select *from applicant_details;
+
+
+CREATE TABLE INTERVIEW_DETAILS(
+interview_id NUMBER(8),
+applicant_id NUMBER(10),
+employee_id NUMBER(10),
+feedback VARCHAR(50),
+status VARCHAR(50),
+CONSTRAINT interview_id_pk PRIMARY KEY(interview_id),
+CONSTRAINT applicant_id_fk FOREIGN KEY(applicant_id) REFERENCES APPLICANT_DETAILS(applicant_id),
+CONSTRAINT employee_id_fk FOREIGN KEY(employee_id) REFERENCES EMPLOYEE_DETAILS(employee_id)
+);
+
+select * from interview_details;
+CREATE SEQUENCE interview_id_sequence
+START WITH 1000 INCREMENT BY 1;
+
+
+INSERT INTO INTERVIEW_DETAILS VALUES( interview_id_sequence.nextVAL,1008,1008,'WEAK IN JAVA','Not Selected');
+INSERT INTO INTERVIEW_DETAILS VALUES( interview_id_sequence.nextVAL,1009,1009,'GOOD','Selected');
+
+INSERT INTO INTERVIEW_DETAILS VALUES( interview_id_sequence.nextVAL,1005,1006,'Meets Requirement','Selected');
+
+select * from interview_details;
+
+select * from job_request;
+select * from login_details;
+select * from applicant_details;
+
+
+select * from applicant_details where status = 'Send For Interview';
+
+select * from applicant_details where status In('Pending', 'InProcess');
+
+select * from interview_details where status In('Send For Interview');
+commit;
+select * from interview_details where status='Selected';
+
+select * from applicant_details where status = 'Send For Interview';
+
+select * from interview_details where status='Selected';
+
+
+
